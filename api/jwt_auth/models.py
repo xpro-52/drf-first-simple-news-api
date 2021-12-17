@@ -12,9 +12,6 @@ import uuid
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    """
-    first_name, last_name等を削除
-    """
     username_validator = UnicodeUsernameValidator()
 
     id = models.UUIDField(_("id"), primary_key=True, default=uuid.uuid4, editable=False)

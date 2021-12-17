@@ -1,13 +1,16 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from django.contrib.auth import get_user_model
 
+
+USER = get_user_model()
 
 class Post(models.Model):
     title = models.CharField(_("Title"), max_length=128)
     body = models.TextField(_("Body"))
-    author = models.CharField(_("Author"), max_length=128)
-    created_date = models.DateTimeField(_("Created date"), auto_now=True, auto_now_add=False)
+    author = models.ForeignKey(to=USER, verbose_name=_("Author"), on_delete=models.CASCADE)
+    created_date = models.DateTimeField(_("Created date"), default=timezone.now)
     published_date = models.DateTimeField(_("Published_date"), default=None, blank=True, null=True)
     is_published = models.BooleanField(default=False, blank=False, null=False)
 
